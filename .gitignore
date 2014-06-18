@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+	<title> HTA </title>
+		<meta charset="utf-8">
+			<hta:application id="LCloud"
+				applicationname="WSS"
+				border="DIALOG"
+				borderstyle="raised"
+				innerborder="no"
+				caption="yes"
+				icon=""
+				showintaskbar="yes"
+				singleinstance="yes"
+				sysmenu="yes"
+				windowstate="yes"
+				maximizebutton="no"
+				contextmenu="no"
+				scroll="no"
+				selection="yes">
+
+			<style type=text/css>
+				body {
+					margin:0;
+					background-color:#DCDCDC;
+					color:#0A0A0A;
+					font-size:8pt;
+					font-family:Gulim;
+					}
+						#qwrap{
+							width:800px;
+							height:500px;
+							margin:0;
+							auto;
+							}
+
+						#bodyL{
+							float:left;
+							width:84px;
+							margin-right:3px;
+							}
+
+					a.od{
+						width:80px;
+						text-align:center;
+						font:bold 11px tahoma;
+						border:2px solid #849BCA;
+						display:block;
+						color:#547BC9;
+						text-decoration:none;
+						padding:7px 0;
+						}
+
+					a.od:link {background:#FFEE88;}
+					a.od:visited {background:#EEF1F8;}
+					a.od:hover {background:#EEE;}
+					a.od:active {background:#EEE;}
+
+					.title {
+						text-align:center;
+						float:left;
+						padding-top:2px;
+						padding-left:3px;
+						}
+
+					.webding {
+						float:right;
+						font-size:6pt;
+						font-family:webdings;
+						font-weight:normal;
+						padding-right:2px;
+						}
+
+						<!-- Cloud START -->
+
+							#Cloud1 {
+								margin-top:2px;
+								margin-left:2px;
+								float:left;
+								overflow:hidden;
+								position:absolute;
+								display:none;
+								filter:alpha(opacity:100);
+								opacity:1;
+								background:#EEF1F8;
+								border:2px solid #849BCA;
+								}
+								.titlebar1 {
+								background-color:#849BCA;
+								font-size:7pt;
+								color:white;
+								height:18px;
+								font-family:verdana;
+								}
+										
+							#Cloud2 {
+								margin-top:2px;
+								margin-left:2px;
+								float:left;
+								overflow:hidden;
+								position:absolute;
+								display:none;
+								filter:alpha(opacity:100);
+								opacity:1;
+								background:#FFFFFF;
+								border:2px solid #88AAEE;
+								}
+								.titlebar2 {
+								background-color:#88AAEE;
+								font-size:7pt;
+								color:white;
+								height:18px;
+								font-family:verdana;
+								}										
+
+							#Cloud3 {
+								margin-top:2px;
+								margin-left:2px;
+								float:left;
+								overflow:hidden;
+								position:absolute;
+								display:none;
+								filter:alpha(opacity:100);
+								opacity:1;
+								background:#FFFFFF;
+								border:2px solid #FFAAEE;
+								}
+								.titlebar3 {
+								background-color:#FFAAEE;
+								font-size:7pt;
+								color:white;
+								height:18px;
+								font-family:verdana;
+								}		
+								
+								#Cloud4 {
+								margin-top:2px;
+								margin-left:2px;
+								float:left;
+								overflow:hidden;
+								position:absolute;
+								display:none;
+								filter:alpha(opacity:100);
+								opacity:1;
+								background:#FFFFFF;
+								border:2px solid #9988EE;
+								}
+								.titlebar4 {
+								background-color:#9988EE;
+								font-size:7pt;
+								color:white;
+								height:18px;
+								font-family:verdana;
+								}	
+								
+								#Cloud5 {
+								margin-top:2px;
+								margin-left:2px;
+								float:left;
+								overflow:hidden;
+								position:absolute;
+								display:none;
+								filter:alpha(opacity:100);
+								opacity:1;
+								background:#FFFFFF;
+								border:2px solid #88AAEE;
+								}
+								.titlebar5 {
+								background-color:#88AAEE;
+								font-size:7pt;
+								color:white;
+								height:18px;
+								font-family:verdana;
+								}	
+								
+								#Cloud6 {
+								margin-top:2px;
+								margin-left:2px;
+								float:left;
+								overflow:hidden;
+								position:absolute;
+								display:none;
+								filter:alpha(opacity:100);
+								opacity:1;
+								background:#FFFFFF;
+								border:2px solid #EE9977;
+								}
+								.titlebar6 {
+								background-color:#EE9977;
+								font-size:7pt;
+								color:white;
+								height:18px;
+								font-family:verdana;
+								}										
+
+								.content {padding:10px;}
+								.hidden {display:none;}
+		</style>
+		<script language="Javascript" type="text/javascript">
+			function RestoreWindowSize()
+				{window.resizeTo(720,640);}
+			function $(id) 
+				{return document.getElementByid(id);}
+
+			// Cloud's Move
+				var cinNum=0;
+				var dx,dy,mx,my,mouseD;
+				var odrag;
+				var isIE=document.all ? true : false;
+
+				document.onmousedown=function(e){
+					var e=e?e:event;
+					if(e.button==(document.all?1:0)){
+						mouseD=true;
+						}
+				cinNum+=1;
+					}
+
+					function dropBox(id){
+					var od = $(id);
+					mouseD=false;
+					odrag="";
+					od.releaseCapture();
+					od.filters.alpha.opacity=100;
+					}
+
+					function dragBox(id){
+					var od = $(id);
+					odrag=this;
+					var e=e?e:event;
+					if(e.button==(document.all?1:0)){
+						mx=e.clientX;
+						mx=e.clientY;
+						od.style.left=od.offsetLeft+"px";
+						od.styletop=od.offsetTop+"px";
+						od.setCapture();
+						od.filters.alpha.opacity=50;
+					}
+
+				document.onmousemove=function(){
+				if(mouseD==true&&odrag){
+					var mrx=e.clientX-mx;
+					var mry=e.clientY-my;
+					od.style.left=parseInt(od.style.left)+mrx+"px";
+					od.style.top=parseInt(od.style.top)+mry+"px";
+					mx=e.clientX;
+					my=e.clientY;
+					}
+				}
+
+			od.style.zIndex=+cinNum;
+			}
+
+			// Cloud's Create and Auto Delete
+
+				var prox;
+				var proy;
+				var proxc;
+				var proyc;
+
+				function show(id,wx,wy){
+					clearInterval(prox);
+					clearInterval(proy);
+					clearInterval(proxc);
+					clearInterval(proyc);
+					
+					var o=$(id);
+					var wx,hy;
+					
+					o.style.display="block";
+					o.style.width="1px";
+					o.style.height="1px";
+					o.style.zIndex=+cinNum;
+					
+					prox=setInterval(
+						function(){
+							openx(o,wx,hy)}, 10);oStat=1;
+							}
+							
+
+				function openx(o,wx,hy){
+					var cx=parseInt(o.style.width);
+					if(cx<wx){
+						o.style.width=(cx+Math.ceil((wx-cx)/5)) +"px";
+					}
+					elseP
+					clearInterval(proy);
+				}
+		function closeed(id){
+			clearInterval(prox);
+			clearInterval(proy);
+			clearInterval(proxc);
+			clearInterval(proyc);
+
+			var o=$(id);
+			if(o.style.display == "block"){
+			proyc=setInterval(function(){closey(o)},10);
+				}
+			}
+		function closey(o){
+			var cy=parseInt(o.style.height);
+			if(cy>0){
+			o.style.height=(cy-Math.ceil(cy/5))+"px";
+			} else{
+				clearInterval(proyc);
+				proxc=setInterval(closex,10);
+
+		function closex(){
+		var cx=parseInt(o.style.width);
+		if(cx>0){
+			o.style.width=(cx-Math.ceil(cx/5))+"px";
+			}else
+			clearInterval(proxc);
+			o.style.distplay="none";
+			}
+		}
+	}
+		</script>
+	</head>
+
+	<!-- Body START and Menu Icon START -->
+	<body onload="RestoreWindowSize()">
+		
+		<div id=qwrap>
+			<div id=BodyL>
+				<a href="#" class="od" id="cloud1_open" onclick="show('cloud1',175,70;" /> Search1</a>
+			</div>
+			
+
+		<div id="cloud1" onmouseup="dropBox('cloud1');" onmousedown="dragBox('cloud1');" return true="dropBox('cloud1');">
+			<div class="titlebar1">
+				<span class=title>
+					Test
+				</span>
+				<a oneclick="closeed('cloud1');">
+					<span class=webding>
+					r
+					</span>
+				</a>
+			</div>
+			<div class="content">
+				<input type=text>
+			</div>
+		</div>
+
+		<div id="cloud2" onmouseup="dropBox('cloud2');" onmousedown="dragBox('cloud2');" return true="dropBox('cloud2');">
+			<div class="titlebar2">
+				<span class=title>
+					Test
+				</span>
+				<a oneclick="closeed('cloud2');">
+					<span class=webding>
+					r
+					</span>
+				</a>
+			</div>
+			<div class="content">
+				<input type=text>
+			</div>
+		</div>
+
+		<div id="cloud1" onmouseup="dropBox('cloud3');" onmousedown="dragBox('cloud3');" return true="dropBox('cloud3');">
+			<div class="titlebar3">
+				<span class=title>
+					Test
+				</span>
+				<a oneclick="closeed('cloud3');">
+					<span class=webding>
+					r
+					</span>
+				</a>
+			</div>
+			<div class="content">
+				<input type=text>
+			</div>
+		</div>
+
+		<div id="cloud1" onmouseup="dropBox('cloud4');" onmousedown="dragBox('cloud4');" return true="dropBox('cloud4');">
+			<div class="titlebar4">
+				<span class=title>
+					Test
+				</span>
+				<a oneclick="closeed('cloud4');">
+					<span class=webding>
+					r
+					</span>
+				</a>
+			</div>
+			<div class="content">
+				<input type=text>
+			</div>
+		</div>
+
+		<div id="cloud1" onmouseup="dropBox('cloud5');" onmousedown="dragBox('cloud5');" return true="dropBox('cloud5');">
+			<div class="titlebar5">
+				<span class=title>
+					Test
+				</span>
+				<a oneclick="closeed('cloud5');">
+					<span class=webding>
+					r
+					</span>
+				</a>
+			</div>
+			<div class="content">
+				<input type=text>
+			</div>
+		</div>
+
+		<div id="cloud1" onmouseup="dropBox('cloud6');" onmousedown="dragBox('cloud6');" return true="dropBox('cloud6');">
+			<div class="titlebar6">
+				<span class=title>
+					Test
+				</span>
+				<a oneclick="closeed('cloud6');">
+					<span class=webding>
+					r
+					</span>
+				</a>
+			</div>
+			<div class="content">
+				<input type=text>
+			</div>
+		</div>
+	
+	</body>
+</html>
